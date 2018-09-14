@@ -106,7 +106,7 @@ helpermore(){
     echo "help | -h | --help: Affiche des informations sur les commandes disponibles"
 }
 
-if [ "$1" = "install-webserver" ]
+if [ "$1" = "webserver" ]
 then
     installWebserver
 elif [ "$1" = "-h" ] || [ "$1" = "help" ] || [ "$1" = "--help" ]
