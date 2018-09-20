@@ -94,6 +94,14 @@ installWebserver() {
     installDatabase
 }
 
+createDomain() {
+    setTitre "Création d'un nouveau domaine dans la configuration apache"
+    read -p "Nom de domaine dans www : " domain
+    read -p "Dossier ou sera stocké votre site : " root_dir
+    read -p "E-mail de votre site : " email
+    read -n1 -p "Activer l'https (o pour oui, n pour non) : " htpps
+}
+
 reloadservice() {
     setTitre "Reload php-fpm + apache2"
     sudo service php7.2-fpm reload
@@ -109,6 +117,9 @@ helpermore(){
 if [ "$1" = "webserver" ]
 then
     installWebserver
+elif [ "$1" = "create-domain" ]
+then
+    createDomain
 elif [ "$1" = "-h" ] || [ "$1" = "help" ] || [ "$1" = "--help" ]
 then
     helpermore
