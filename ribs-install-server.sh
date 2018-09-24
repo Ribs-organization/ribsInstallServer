@@ -99,10 +99,66 @@ installWebserver() {
 
 createDomain() {
     setTitre "Création d'un nouveau domaine dans la configuration apache"
-    read -p "Nom de domaine dans www : " domain
+    read -p "Nom de domaine sans www : " domain
     read -p "Dossier ou sera stocké votre site : " root_dir
     read -p "E-mail de votre site : " email
+    read -n1 -p "Votre site utilise t'il Symfony (o pour oui, n pour non) : " symfony
+    echo ""
+    read -n1 -p "AllowOverride all ? (o pour oui, n pour non) : " override
+    echo ""
     read -n1 -p "Activer l'https (o pour oui, n pour non) : " htpps
+    echo ""
+
+    if [ "$symfony" = "o" ]
+    then
+        symfony="
+            <IfModule mod_rewrite.c>
+                Options -MultiViews
+                RewriteEngine On
+                RewriteCond %{REQUEST_FILENAME} !-f
+                RewriteRule ^(.*)$ index.php [QSA,L]
+            </IfModule>
+        "
+
+        override="None"
+    else
+        symfony=""
+
+        if [ "override" = "o" ]
+        then
+            override="All"
+        else
+            override="None"
+        fi
+    fi
+
+    sudo touch "/etc/apache2/sites-available/${domain}.conf"
+    sudo echo "
+		<VirtualHost *:80>
+			ServerAdmin $email
+			ServerName $domain
+			ServerAlias www.$domain
+			DocumentRoot $root_dir
+			<Directory $root_dir>
+				AllowOverride $override
+                Order allow,deny
+                allow from all
+
+                $symfony
+			</Directory>
+			ErrorLog /var/log/apache2/$domain-error.log
+			LogLevel error
+			CustomLog /var/log/apache2/$domain-access.log combined
+		</VirtualHost>" >> "/etc/apache2/sites-available/${domain}.conf"
+
+    sudo a2ensite "${domain}.conf"
+
+	if [ "$htpps" = "o" ]
+    then
+        sudo certbot
+    fi
+
+    reloadservice
 }
 
 reloadservice() {
