@@ -66,6 +66,9 @@ installWebserver() {
     setTitre "Installation des dépendances PHP7.2"
     sudo apt install php7.2-mysql php7.2-zip php7.2-xml php7.2-intl libpng-dev php-imagick
 
+    setTitre "Installation de certbot"
+    sudo apt install certbot
+
     setTitre "Installation de composer"
     sudo apt install composer
 
