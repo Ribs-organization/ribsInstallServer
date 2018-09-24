@@ -36,3 +36,12 @@ And now to install a webserver on ubuntu distribution you just have to do (In th
 ```bash
 ./ribs-install-server.sh webserver
 ```
+
+## Create a config for a domain
+
+To create a domain on ubuntu distribution you just have to do (In the folder of the bash script) :
+This command is automaticly call on webserver command
+
+```bash
+./ribs-install-server.sh create-domain
+```
