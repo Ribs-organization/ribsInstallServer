@@ -58,23 +58,23 @@ installWebserver() {
     setTitre "L'installation du serveur web a été lancée"
 
     setTitre "Mise à jour du serveur"
-    sudo apt-get update && apt-get upgrade
+    sudo apt-get update && sudo apt-get upgrade
 
     setTitre "Installation apache 2 mariadb php7.2"
-    sudo apt install apache2 mariadb-server php7.2 php7.2-fpm curl
+    sudo apt-get install apache2 mariadb-server php7.2 php7.2-fpm curl
 
     setTitre "Installation des dépendances PHP7.2"
-    sudo apt install php7.2-mysql php7.2-zip php7.2-xml php7.2-intl libpng-dev php-imagick
+    sudo apt-get install php7.2-mysql php7.2-zip php7.2-xml php7.2-intl libpng-dev php-imagick
 
     setTitre "Installation de certbot"
-    sudo apt install certbot
+    sudo apt-get install certbot
 
     setTitre "Installation de composer"
-    sudo apt install composer
+    sudo apt-get install composer
 
     setTitre "Installation de nodejs"
     sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-    sudo apt install -y nodejs
+    sudo apt-get install -y nodejs
 
     setTitre "Installation de yarn"
     sudo curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
