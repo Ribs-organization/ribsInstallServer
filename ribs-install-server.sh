@@ -60,26 +60,35 @@ installWebserver() {
     setTitre "Mise à jour du serveur"
     sudo apt-get update && sudo apt-get upgrade
 
-    setTitre "Installation apache 2 mariadb php7.2"
-    sudo apt-get install apache2 mariadb-server php7.2 php7.2-fpm curl
+    setTitre "Installation apache 2, mariadb et curl"
+    sudo apt-get install -y apache2 mariadb-server mariadb-client curl software-properties-common dirmngr
+
+    setTitre "Installation PHP7.2"
+    sudo add-apt-repository ppa:ondrej/php
+    sudo apt update
+    sudo apt install -y php7.2 php7.2-common php7.2-cli php7.2-fpm
 
     setTitre "Installation des dépendances PHP7.2"
-    sudo apt-get install php7.2-mysql php7.2-zip php7.2-xml php7.2-intl libpng-dev php-imagick
+    sudo apt install -y php7.2-mysql php7.2-zip php7.2-xml php7.2-intl libpng-dev php-imagick
 
     setTitre "Installation de certbot"
-    sudo apt-get install certbot
+    sudo apt-get update
+    sudo apt install -y software-properties-common
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt-get update
+    sudo apt install -y python-certbot-apache
 
     setTitre "Installation de composer"
-    sudo apt-get install composer
+    sudo apt install -y composer
 
     setTitre "Installation de nodejs"
     sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-    sudo apt-get install -y nodejs
+    sudo apt install -y nodejs
 
     setTitre "Installation de yarn"
     sudo curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    sudo apt-get update && sudo apt-get install yarn
+    sudo apt-get update && sudo apt-get install -y yarn
 
     setTitre "Mise en place de php fpm"
     sudo a2enmod proxy_fcgi setenvif
@@ -87,11 +96,10 @@ installWebserver() {
     sudo a2dismod php7.2
 
     setTitre "Update à mariadb 10.3"
-    sudo apt-get install software-properties-common
     sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
     sudo add-apt-repository 'deb [arch=amd64,arm64,i386,ppc64el] http://mariadb.mirrors.ovh.net/MariaDB/repo/10.3/ubuntu xenial main'
     sudo apt-get update
-    sudo apt-get install mariadb-server -y
+    sudo apt install -y mariadb-server mariadb-client
 
     reloadservice
     installDatabase
@@ -170,12 +178,16 @@ reloadservice() {
 helpermore(){
     setTitre "Commandes disponibles"
     echo "webserver: Permet d'installer un serveur web (apache2, php7.2-fpm, mariadb, ...) sur un distrib ubuntu"
+    echo "create-database: Permet de créer un user et une bdd pour une ou toutes les bdd"
     echo "help | -h | --help: Affiche des informations sur les commandes disponibles"
 }
 
 if [ "$1" = "webserver" ]
 then
     installWebserver
+elif [ "$1" = "create-database" ]
+then
+    installDatabase
 elif [ "$1" = "create-domain" ]
 then
     createDomain
