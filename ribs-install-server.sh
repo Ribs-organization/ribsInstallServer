@@ -169,7 +169,7 @@ reloadservice() {
 
 helpermore(){
     setTitre "Commandes disponibles"
-    echo "install-webserver: Permet d'installer un serveur web (apache2, php7.2-fpm, mariadb, ...) sur un distrib ubuntu"
+    echo "webserver: Permet d'installer un serveur web (apache2, php7.2-fpm, mariadb, ...) sur un distrib ubuntu"
     echo "help | -h | --help: Affiche des informations sur les commandes disponibles"
 }
 
