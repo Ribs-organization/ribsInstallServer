@@ -37,6 +37,11 @@ And now to install a webserver on ubuntu distribution you just have to do (In th
 ./ribs-install-server.sh webserver
 ```
 
+After that if you got problem with mariadb. You just have to change the file /etc/mysql/mariadb.conf.d/50-server.cnf
+and add this line `plugin-load-add = auth_socket.so` below `[mysqld]` section
+
+
+
 ## Create a config for a domain
 
 To create a domain on ubuntu distribution you just have to do (In the folder of the bash script) :
