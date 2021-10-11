@@ -2,11 +2,11 @@
 This bash script install all necesaries for a web server on ubuntu distribution.
 It will install : 
 - apache2
-- php7.2 with fpm
-- php7.2-mysql
-- php7.2-zip
-- php7.2-xml
-- php7.2-intl
+- php7.4 with fpm
+- php7.4-mysql
+- php7.4-zip
+- php7.4-xml
+- php7.4-intl
 - composer
 - mariadb10.3
 - curl
