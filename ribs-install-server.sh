@@ -66,10 +66,10 @@ installWebserver() {
     setTitre "Installation PHP7.2"
     sudo add-apt-repository ppa:ondrej/php
     sudo apt update
-    sudo apt install -y php7.2 php7.2-common php7.2-cli php7.2-fpm
+    sudo apt install -y php7.4 php7.4-common php7.4-cli php7.4-fpm
 
     setTitre "Installation des dépendances PHP7.2"
-    sudo apt install -y php7.2-mysql php7.2-zip php7.2-xml php7.2-intl libpng-dev php-imagick
+    sudo apt install -y php7.4-mysql php7.4-zip php7.4-xml php7.4-intl libpng-dev php-imagick
 
     setTitre "Installation de certbot"
     sudo apt-get update
@@ -92,8 +92,8 @@ installWebserver() {
 
     setTitre "Mise en place de php fpm"
     sudo a2enmod proxy_fcgi setenvif
-    sudo a2enconf php7.2-fpm
-    sudo a2dismod php7.2
+    sudo a2enconf php7.4-fpm
+    sudo a2dismod php7.4
 
     setTitre "Update à mariadb 10.3"
     sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
@@ -171,13 +171,13 @@ createDomain() {
 
 reloadservice() {
     setTitre "Reload php-fpm + apache2"
-    sudo service php7.2-fpm reload
+    sudo service php7.4-fpm reload
     sudo service apache2 reload
 }
 
 helpermore(){
     setTitre "Commandes disponibles"
-    echo "webserver: Permet d'installer un serveur web (apache2, php7.2-fpm, mariadb, ...) sur un distrib ubuntu"
+    echo "webserver: Permet d'installer un serveur web (apache2, php7.4-fpm, mariadb, ...) sur un distrib ubuntu"
     echo "create-database: Permet de créer un user et une bdd pour une ou toutes les bdd"
     echo "help | -h | --help: Affiche des informations sur les commandes disponibles"
 }
