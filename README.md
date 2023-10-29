@@ -1,3 +1,5 @@
+Unmaintened project. Please don't use it
+
 # ribsInstallServer
 This bash script install all necesaries for a web server on ubuntu distribution.
 It will install : 
